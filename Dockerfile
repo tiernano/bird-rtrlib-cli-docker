@@ -1,5 +1,19 @@
 FROM ubuntu:20.04
 
+ARG BUILD_DATE
+ARG VCS_REF
+ARG VERSION
+
+LABEL org.label-schema.build-date=$BUILD_DATE \
+    org.label-schema.name="bird-rtrlib-cli-docker" \
+    org.label-schema.description="quick and dirty Docker instance of rtrlib and bird-rtrlib" \
+    org.label-schema.url="https://www.tiernanotoole.ie" \
+    org.label-schema.vcs-ref=$VCS_REF \
+    org.label-schema.vcs-url="https://github.com/tiernano/bird-rtrlib-cli-docker" \
+    org.label-schema.vendor="Tiernan OToole" \
+    org.label-schema.version=$VERSION \
+    org.label-schema.schema-version="1.0"
+
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-recommends apt-utils build-essential sudo git cmake libssh-dev wget libssl-dev ca-certificates
