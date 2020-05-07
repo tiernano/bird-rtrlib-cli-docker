@@ -6,6 +6,9 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-reco
 
 RUN update-ca-certificates
 
+VOLUME ["/run/bird", "/run/bird"]
+
+
 WORKDIR /tmp
 
 RUN wget https://github.com/rtrlib/rtrlib/archive/v0.7.0.tar.gz && tar -zxvf v0.7.0.tar.gz && rm v0.7.0.tar.gz
@@ -28,9 +31,7 @@ RUN cmake .
 
 RUN make
 
-VOLUME /var/run/bird.ctl 
-
-CMD ./bird-rtrlib-cli -b /var/run/bird.ctl -r rtr.rpki.cloudflare.com:8282
+CMD ["/tmp/bird-rtrlib-cli-0.1.1/bird-rtrlib-cli", "-b /run/bird/bird.ctl", "-r rtr.rpki.cloudflare.com:8282"]
 
 
 
